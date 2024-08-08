@@ -1,0 +1,118 @@
+/* Navbar.css */
+
+.navbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    background-color: #fff;
+    border-right: 1px solid #dbdbdb;
+    position: fixed;
+    height: 100%;
+    padding-top: 20px;
+  }
+  
+  .navbar-logo h1 {
+    font-size: 24px;
+    margin-bottom: 30px;
+    font-family: 'Instagram Logo Font', sans-serif; /* Adjust this as needed */
+  }
+  
+  .navbar-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
+  
+  .navbar-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 15px 0;
+    /* width: 100%; */
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    margin-left: 10%;
+  }
+  
+  .navbar-item:hover {
+    background-color: #fafafa;
+  }
+  
+  .navbar-item span {
+    font-size: 12px;
+    margin-top: 5px;
+    margin-left: 10px;
+    color: #262626;
+  }
+  
+  .navbar-item svg {
+    font-size: 24px;
+    color: #262626;
+  }
+  
+  /* Media Queries for Responsiveness */
+  
+  @media (max-width: 768px) {
+    .navbar {
+        flex-direction: row;
+        width: 100%;
+        height: 60px; /* Allow height to adjust based on content */
+        overflow-x: auto; /* Enable horizontal scrolling if needed */
+        border-right: none;
+        border-top: 1px solid #dbdbdb;
+        margin-bottom: 20px;
+        white-space: nowrap; /* Prevent wrapping of navbar items */
+    }
+
+    .navbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .navbar-logo h1 {
+        display: none; /* Hide logo text on small screens */
+    }
+
+    .navbar-links {
+        display: flex;
+        justify-content: space-evenly;
+        flex-wrap: nowrap; /* Prevent wrapping of navbar links */
+        width: auto; /* Adjust width based on content */
+    }
+
+    .navbar-item {
+        padding: 0 10px;
+        display: flex;
+        align-items: center;
+        flex: 1; /* Allow items to grow and shrink as needed */
+    }
+
+    .navbar-item span {
+        display: none; /* Hide span elements on small screens */
+    }
+
+    .navbar-item svg {
+        font-size: 20px; /* Adjust icon size */
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        flex-direction: row;
+        overflow-x: auto; /* Ensure scrolling for very small screens */
+    }
+
+    .navbar-links {
+        flex-wrap: nowrap; /* Prevent wrapping of navbar links */
+    }
+
+    .navbar-item {
+        padding: 0 8px; /* Adjust padding for smaller screens */
+    }
+
+    .navbar-item svg {
+        font-size: 18px; /* Further adjust icon size */
+    }
+}

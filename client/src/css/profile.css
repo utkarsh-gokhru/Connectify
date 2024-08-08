@@ -1,0 +1,70 @@
+.profile-setup-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    /* Background color for the page */
+}
+
+.profile-setup-content {
+    margin: 20px;
+    max-width: 500px;
+    width: 100%;
+    padding: 20px;
+    background-color: #ffffff;
+    /* White background for the content area */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* Box shadow for depth */
+    border-radius: 8px;
+    /* Rounded corners */
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type='text'],
+input[type='email'],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+textarea {
+    height: 100px;
+    /* Adjust height for the bio textarea */
+}
+
+button {
+    background-color: #007bff;
+    /* Primary button color */
+    color: #ffffff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #0056b3;
+    /* Darker shade for hover effect */
+}
+
+@media (max-width: 600px) {
+    .profile-setup-content {
+        padding: 20px;
+        margin: 10px;
+    }
+}

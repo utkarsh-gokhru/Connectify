@@ -1,0 +1,28 @@
+.posts-page{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.posts{
+    margin-left: 30%;
+}
+
+@media (max-width: 768px) {
+    .nav {
+        position: relative; /* Remove fixed positioning on smaller screens */
+        padding: 10px;
+    }
+
+    .posts {
+        margin: 70px 20px 20px; /* Adjust margin-top for navbar */
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .posts {
+        margin: 60px 10px 10px; /* Further adjust margin-top */
+        padding: 10px;
+    }
+}
