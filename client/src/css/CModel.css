@@ -1,0 +1,196 @@
+/* imageCommentModal.css */
+.image-comment-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.image-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background: #f9f9f9;
+    margin-right: 10px;
+    margin-left: 20px;
+    border-radius: 8px;
+}
+
+.image-section img {
+    max-width: 100%;
+    height: auto;
+    max-height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.comment-section {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    overflow-x: auto;
+    margin-left: 10px;
+    margin-right: 20px;
+    border-radius: 8px;
+    width: 30%;
+    max-height: 50%;
+}
+
+.comment-section h2 {
+    margin-top: 0;
+    font-size: 1.6rem;
+    color: #333;
+}
+
+.allComments {
+    flex: 1;
+    margin-bottom: 20px;
+    overflow-y: scroll;
+    /* Ensure scrolling is possible */
+}
+
+/* WebKit browsers */
+.allComments::-webkit-scrollbar {
+    display: none;
+    /* Hides the scrollbar */
+}
+
+
+.CScomment {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #f1f1f1;
+    border-radius: 6px;
+}
+
+.CScomment p {
+    margin: 2px;
+    color: #555;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    box-sizing: border-box;
+}
+
+
+.addComment {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.addComment input {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.addComment input:focus {
+    border-color: #007bff;
+}
+
+.addC {
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #007bff;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 50%;
+    margin-left: 25%;
+}
+
+.addComment button:disabled {
+    background-color: #ccc;
+}
+
+.addComment button:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+.close-overlay {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: #ccc;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #333;
+}
+
+.close-overlay:hover {
+    color: #000;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: row;
+}
+
+.inputs input {
+    width: 80%;
+}
+
+.emoji-btn {
+    width: 20%;
+}
+
+.emoji-picker {
+    position: relative;
+    /* bottom: 60px;
+    right: 10px; */
+    z-index: 1000;
+}
+
+#root > div > div > div.posts > div:nth-child(1) > div.image-comment-overlay > div.comment-section > div.addComment > div.emoji-picker > aside > div.epr-header.epr_iogimd.epr_wtwvf4 > div.epr_q53mwh.epr_-8ygbw8.epr_346qu6.epr_-lzq3oa > div.epr-search-container.epr_-l19tlc.epr_szp4ut.epr_bftf4a > div{
+    visibility: hidden;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .image-comment-overlay {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+    }
+
+    .image-section {
+        max-height: 50vh;
+        /* Adjust image height on smaller screens */
+        margin: 10px;
+    }
+
+    .comment-section {
+        margin: 10px;
+        max-height: 30vh;
+        /* Adjust comment section height */
+        width: 80vw;
+    }
+
+    .comment-section h2 {
+        font-size: 1.2rem;
+    }
+}

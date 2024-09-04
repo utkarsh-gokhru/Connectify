@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../css/post.css';
 import { useNavigate } from 'react-router-dom';
 import PostModal from './modal'; // Import the modal component
 import { useSelector } from 'react-redux';
+import CommentModal from './commentModal';
 
-const Post = ({ postId, username, profileImg, content, media, likes, comments }) => {
+const Post = ({ postId, username, profileImg, content, media, likes, comments, socket }) => {
     const [likeClicked, setLikeClicked] = useState(false);
     const [showFullCaption, setShowFullCaption] = useState(false);
-    const [likeCount, setLikeCount] = useState(likes);
+    const [likeCount, setLikeCount] = useState(likes.length);
     const [open, setOpen] = useState(false);
     const [clickTimeout, setClickTimeout] = useState(null);
+    const [showComment, setShowComment] = useState(false);
+    const [comment, setComment] = useState('');
     const maxLength = 20;
 
     const navigate = useNavigate();
@@ -21,12 +24,14 @@ const Post = ({ postId, username, profileImg, content, media, likes, comments })
     }
 
     const handleLikeClick = () => {
-        if(likeClicked === false){
+        if (likeClicked === false) {
             setLikeClicked(true);
-            setLikeCount(likeCount+1);
-        }else{
-            setLikeCount(likeCount-1);
+            setLikeCount(likeCount + 1);
+            socket.emit('likesUpdate', { postId, viewerName });
+        } else {
+            setLikeCount(likeCount - 1);
             setLikeClicked(false);
+            socket.emit('likesUpdate', { postId, viewerName })
         }
     };
 
@@ -49,25 +54,45 @@ const Post = ({ postId, username, profileImg, content, media, likes, comments })
     }
 
     const handleImageClick = () => {
-        // Single click to open modal
+        // Clear any existing timeout
         if (clickTimeout) {
             clearTimeout(clickTimeout);
             setClickTimeout(null);
-        } else {
-            setClickTimeout(setTimeout(() => {
-                handleOpen();
-            }, 250)); // Delay to distinguish from double click
         }
-    }
+
+        // Set a new timeout for the single-click action
+        const timeout = setTimeout(() => {
+            handleOpen(); // Open the modal after delay if no double-click occurs
+            setClickTimeout(null);
+        }, 300); // Adjust the delay as needed (300ms is typical)
+
+        setClickTimeout(timeout);
+    };
 
     const handleImageDoubleClick = () => {
-        // Double click to like
+        // If a double-click is detected, clear the timeout and handle the like action
         if (clickTimeout) {
             clearTimeout(clickTimeout);
             setClickTimeout(null);
         }
-        handleLikeClick();
+        handleLikeClick(); // Like the post on double click
+    };
+
+
+    const handleCommentClick = () => {
+        setShowComment(!showComment);
     }
+
+    const handleAddComment = () => {
+        socket.emit('addComment', { postId, viewerName, comment });
+        setComment('');
+    }
+
+    useEffect(() => {
+        if (likes.includes(viewerName)) {
+            setLikeClicked(true);
+        }
+    }, [likes, viewerName]);
 
     return (
         <div className='post'>
@@ -79,9 +104,9 @@ const Post = ({ postId, username, profileImg, content, media, likes, comments })
                     </div>
                 </div>
                 <div className='caption'>
-                    <div 
-                        className='post-image' 
-                        onClick={handleImageClick} 
+                    <div
+                        className='post-image'
+                        onClick={handleImageClick}
                         onDoubleClick={handleImageDoubleClick}
                     >
                         {media && <img src={'http://localhost:5000/images/' + media} alt='Post' />}
@@ -120,7 +145,7 @@ const Post = ({ postId, username, profileImg, content, media, likes, comments })
                         </svg>
                         <span><p>{likeCount}</p></span>
                     </div>
-                    <div className='comment'>
+                    <div className='comment' onClick={handleCommentClick}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             height="100%"
@@ -131,7 +156,7 @@ const Post = ({ postId, username, profileImg, content, media, likes, comments })
                         >
                             <path d="M80-80v-720q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H240L80-80Zm126-240h594v-480H160v525l46-45Zm-46 0v-480 480Z" />
                         </svg>
-                        <span><p>{comments}</p></span>
+                        <span><p>{comments.length}</p></span>
                     </div>
                 </div>
             </div>
@@ -143,7 +168,18 @@ const Post = ({ postId, username, profileImg, content, media, likes, comments })
                     content={content}
                     media={media}
                     likes={likeCount}
+                    comments={comments.length}
+                    likeClicked={likeClicked}
+                />
+            )}
+            {showComment && (
+                <CommentModal
+                    media={media}
                     comments={comments}
+                    comment={comment}
+                    onCommentChange={setComment}
+                    onAddComment={handleAddComment}
+                    onClose={() => setShowComment(false)}
                 />
             )}
         </div>

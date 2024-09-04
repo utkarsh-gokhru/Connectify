@@ -2,7 +2,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import LandingPage from './pages/landing'
 import SignupPage from './pages/signup';
 import LoginPage from './pages/login';
-import HomePage from './pages/homePage';
+// import HomePage from './pages/homePage';
 import ProfileSetupPage from './pages/profile';
 import Post from './components/post';
 import AddPost from './pages/addPost';
@@ -18,7 +18,7 @@ function App(){
           <Route path='/' element= {< LandingPage />} />
           <Route path='/signup' element= {< SignupPage />} />
           <Route path='/login' element= {< LoginPage />} />
-          <Route path='/home' element= {< HomePage />} />
+          <Route path='/home' element= {< PostsPage />} />
           <Route path='/profile' element= {< ProfileSetupPage/>} />
           <Route path='/post' element= {< Post/>} />
           <Route path='/xyz' element= {< AddPost/>} />

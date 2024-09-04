@@ -82,14 +82,17 @@ body {
 /* Post image container */
 .post-image {
     width: 100%;
-    height: auto; /* Let height adjust based on image aspect ratio */
+    height: auto;
+    /* Let height adjust based on image aspect ratio */
     overflow: hidden;
 }
 
 .post-image img {
     width: 100%;
-    height: auto; /* Adjust height automatically to maintain aspect ratio */
-    object-fit: cover; /* Ensure the image covers the container without distortion */
+    height: auto;
+    /* Adjust height automatically to maintain aspect ratio */
+    object-fit: cover;
+    /* Ensure the image covers the container without distortion */
     cursor: pointer;
 }
 
@@ -145,54 +148,6 @@ span p {
     font-size: 1em;
 }
 
-/* src/css/modal.css */
-
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.modal-content {
-    background: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    position: relative;
-    width: 40%;
-    height: 80%;
-    overflow: auto;
-    box-sizing: border-box;
-}
-
-.modal-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    border: none;
-    background: #ccc;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    color: #333;
-}
-
-.modal-close:hover {
-    background: #aaa;
-}
-
-
 /* Responsive design */
 @media (max-width: 600px) {
     .post {
@@ -202,7 +157,8 @@ span p {
 
     .post-card {
         width: 100%;
-        height: auto; /* Allow height to adjust based on content */
+        height: auto;
+        /* Allow height to adjust based on content */
         margin: 0;
     }
 
@@ -220,6 +176,19 @@ span p {
     #userName,
     #prImg {
         margin-bottom: 10px;
+    }
+
+    .CScomment {
+        padding: 5px;
+    }
+
+    .addComment input[type="text"] {
+        font-size: 0.8em;
+    }
+
+    .addComment button {
+        font-size: 0.8em;
+        padding: 8px 10px;
     }
 }
 
@@ -240,7 +209,8 @@ span p {
     .post-card {
         width: 100%;
         max-width: 100%;
-        height: auto; /* Allow height to adjust based on content */
+        height: auto;
+        /* Allow height to adjust based on content */
         margin: 0;
     }
 
@@ -261,7 +231,8 @@ span p {
         margin-bottom: 10px;
     }
 
-    .caption, p {
+    .caption,
+    p {
         padding: 10px;
         width: 100%;
     }
