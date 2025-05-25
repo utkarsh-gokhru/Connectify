@@ -42,3 +42,30 @@ export const setProfileType = (type) => {
         });
     };
 };
+
+export const setNotifications = (notifications) => {
+    return (dispatch) => {
+        dispatch({
+            type: 'setNotifications',
+            payload: notifications,
+        });
+    };
+};
+
+export const setRequests = (requests) => {
+    return (dispatch) => {
+        dispatch({
+            type: 'setRequests',
+            payload: requests,
+        });
+    };
+};
+
+export const setFriends = (friends) => {
+    return (dispatch) => {
+        dispatch({
+            type: 'setFriends',
+            payload: friends,
+        });
+    };
+};

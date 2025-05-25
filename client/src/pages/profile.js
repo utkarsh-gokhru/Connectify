@@ -7,10 +7,10 @@ import { useSelector } from 'react-redux';
 const ProfileSetupPage = () => {
 
   const user = useSelector((state) => state.user);
-  const existUsername = user.username;
+  const existUsername = sessionStorage.getItem('username');
   console.log(user);
 
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState(existUsername);
   const [profileImage, setProfileImage] = useState(null);
   const [bio, setBio] = useState('');
   const [profileType, setProfileType] = useState('public'); // Default to public

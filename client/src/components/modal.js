@@ -2,14 +2,8 @@ import React, { useState } from 'react';
 import '../css/modal.css';
 
 const PostModal = ({ handleClose, username, profileImg, content, media, likes, comments, likeClicked }) => {
-
-    // const [likeClicked, setLikeClicked] = useState(false);
     const [showFullCaption, setShowFullCaption] = useState(false);
     const maxLength = 20;
-
-    // const handleLikeClick = () => {
-    //     setLikeClicked(!likeClicked);
-    // };
 
     const handleReadMoreClick = () => {
         setShowFullCaption(!showFullCaption);
@@ -20,19 +14,39 @@ const PostModal = ({ handleClose, username, profileImg, content, media, likes, c
         return `${text.substring(0, maxLength)}...`;
     };
 
+    function isVideo(url) {
+        try {
+          const parsedUrl = new URL(url);
+          const fileName = parsedUrl.pathname.split('/').pop();
+          return fileName.toLowerCase().endsWith('.mp4');
+        } catch (e) {
+          console.error('Invalid URL:', url);
+          return false;
+        }
+      }
+
     return (
         <div className="modal-overlay" onClick={handleClose}>
             <div className="modal-content" onClick={e => e.stopPropagation()}>
                 <div className='post-card'>
                     <div className='post_user'>
                         <div className='post-header'>
-                            <div id='userName' ><h3>{username}</h3></div>
-                            <div id='prImg' ><img src={'http://localhost:5000/images/' + profileImg} alt='Profile' className='icon' /></div>
+                            <div id='userName'><h3>{username}</h3></div>
+                            <div id='prImg'><img src={profileImg} alt='Profile' className='icon' /></div>
                         </div>
                     </div>
                     <div className='caption'>
                         <div className='post-image'>
-                            {media && <img src={'http://localhost:5000/images/' + media} alt='Post' />}
+                            {media && (
+                                isVideo(media) ? (
+                                    <video controls>
+                                        <source src={media} type="video/mp4" />
+                                        Your browser does not support the video tag.
+                                    </video>
+                                ) : (
+                                    <img src={media} alt='Post' />
+                                )
+                            )}
                         </div>
                     </div>
                     <p>
@@ -48,7 +62,6 @@ const PostModal = ({ handleClose, username, profileImg, content, media, likes, c
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"
-                                // onClick={handleLikeClick}
                                 className='like-icon'
                                 style={{
                                     cursor: 'pointer',

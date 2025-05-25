@@ -81,6 +81,13 @@
     border-radius: 8px;
 }
 
+.post-image video{
+    max-width: 100%;
+    max-height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
 p {
     margin: 10px 0;
     color: #333;

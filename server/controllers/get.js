@@ -1,5 +1,6 @@
 import { userModel } from '../models/user.js';
 import { postsModel } from '../models/posts.js';
+import { friendRequestModel } from '../models/friendRequests.js';
 
 export const profile = async (req, res) => {
 
@@ -50,6 +51,19 @@ export const user = async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 };
+
+export const request = async (req, res) => {
+    try {
+        const username = req.query.username;
+
+        const reqData = await friendRequestModel.find({ receiver: username });
+
+        res.status(200).json(reqData);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+}
 
 export const userPosts = async (req, res) => {
     try {

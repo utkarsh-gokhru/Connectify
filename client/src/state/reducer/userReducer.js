@@ -5,6 +5,9 @@ const initialState = {
     profileImage: null,
     bio: '',
     profileType: 'Public', // Default value
+    notifications: [],
+    requests: [],
+    friends: []
 };
 
 // Reducer function
@@ -38,6 +41,24 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 profileType: action.payload,
+            };
+
+        case 'setNotifications':
+            return {
+                ...state,
+                notifications: action.payload
+            };
+
+        case 'setRequests':
+            return {
+                ...state,
+                requests: action.payload
+            };
+
+        case 'setFriends':
+            return {
+                ...state,
+                friends: action.payload
             };
 
         default:

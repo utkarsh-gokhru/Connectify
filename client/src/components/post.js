@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import '../css/post.css';
 import { useNavigate } from 'react-router-dom';
 import PostModal from './modal'; // Import the modal component
-import { useSelector } from 'react-redux';
 import CommentModal from './commentModal';
 
 const Post = ({ postId, username, profileImg, content, media, likes, comments, socket }) => {
@@ -16,8 +15,7 @@ const Post = ({ postId, username, profileImg, content, media, likes, comments, s
     const maxLength = 20;
 
     const navigate = useNavigate();
-    const viewer = useSelector((state) => state.user);
-    const viewerName = viewer.username;
+    const viewerName = sessionStorage.getItem('username');
 
     const userNav = () => {
         navigate(`/user-profile?username=${username}`);
@@ -31,10 +29,9 @@ const Post = ({ postId, username, profileImg, content, media, likes, comments, s
         } else {
             setLikeCount(likeCount - 1);
             setLikeClicked(false);
-            socket.emit('likesUpdate', { postId, viewerName })
+            socket.emit('likesUpdate', { postId, viewerName });
         }
     };
-
 
     const handleReadMoreClick = () => {
         setShowFullCaption(!showFullCaption);
@@ -47,11 +44,11 @@ const Post = ({ postId, username, profileImg, content, media, likes, comments, s
 
     const handleOpen = () => {
         setOpen(true);
-    }
+    };
 
     const handleClose = () => {
         setOpen(false);
-    }
+    };
 
     const handleImageClick = () => {
         // Clear any existing timeout
@@ -78,21 +75,34 @@ const Post = ({ postId, username, profileImg, content, media, likes, comments, s
         handleLikeClick(); // Like the post on double click
     };
 
-
     const handleCommentClick = () => {
         setShowComment(!showComment);
-    }
+    };
 
     const handleAddComment = () => {
         socket.emit('addComment', { postId, viewerName, comment });
         setComment('');
-    }
+    };
 
     useEffect(() => {
         if (likes.includes(viewerName)) {
             setLikeClicked(true);
         }
-    }, [likes, viewerName]);
+        setLikeCount(likes.length);
+    }, [likes, viewerName]);    
+
+    // Function to check if the media is an image or video
+    function isVideo(url) {
+        try {
+          const parsedUrl = new URL(url);
+          const fileName = parsedUrl.pathname.split('/').pop();
+          return fileName.toLowerCase().endsWith('.mp4');
+        } catch (e) {
+          console.error('Invalid URL:', url);
+          return false;
+        }
+      }
+      
 
     return (
         <div className='post'>
@@ -100,16 +110,21 @@ const Post = ({ postId, username, profileImg, content, media, likes, comments, s
                 <div className='post_user'>
                     <div className='post-header'>
                         <div id='userName' onClick={userNav}><h3>{username}</h3></div>
-                        <div id='prImg' onClick={userNav}><img src={'http://localhost:5000/images/' + profileImg} alt='Profile' className='icon' /></div>
+                        <div id='prImg' onClick={userNav}><img src={profileImg} alt='Profile' className='icon' /></div>
                     </div>
                 </div>
                 <div className='caption'>
-                    <div
-                        className='post-image'
-                        onClick={handleImageClick}
-                        onDoubleClick={handleImageDoubleClick}
-                    >
-                        {media && <img src={'http://localhost:5000/images/' + media} alt='Post' />}
+                    <div className='post-media'>
+                        {media && (
+                            isVideo(media) ? (
+                                <video controls>
+                                    <source src={media} type="video/mp4" />
+                                    Your browser does not support the video tag.
+                                </video>
+                            ) : (
+                                <img src={media} alt='Post' onClick={handleImageClick} onDoubleClick={handleImageDoubleClick}/>
+                            )
+                        )}
                     </div>
                 </div>
                 <p>

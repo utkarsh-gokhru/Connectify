@@ -1,43 +1,60 @@
-.image-upload-container {
-    max-width: 500px;
-    margin: 10px auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background: #f9f9f9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+/* Container styling */
+.media-upload-container {
+    max-width: 600px; /* Increased width for better spacing */
+    margin: 20px auto;
+    padding: 25px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #ffffff; /* Changed to pure white for a cleaner look */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Heading styling */
 h1 {
     text-align: center;
+    margin-bottom: 25px;
+    font-size: 1.8em; /* Increased font size for better readability */
+    color: #333; /* Slightly darker color for better contrast */
+}
+
+/* Form group styling */
+.form-group {
     margin-bottom: 20px;
 }
 
-.form-group {
-    margin-bottom: 15px;
-}
-
+/* Input and textarea styling */
 .form-group input[type="file"],
 .form-group textarea {
-    width: 90%;
-    padding: 10px;
+    width: 100%; /* Full width for better alignment */
+    padding: 12px;
     border: 1px solid #ddd;
     border-radius: 8px;
+    box-sizing: border-box; /* Ensures padding doesn't affect the width */
+    font-size: 1em; /* Increased font size */
+    margin-top: 10px; /* Added space between input and textarea */
 }
 
+/* Textarea specific styling */
 textarea {
-    height: 100px;
+    height: 120px; /* Increased height for better text visibility */
     resize: none;
 }
 
+/* Button styling */
 button {
     width: 100%;
-    padding: 10px;
-    background-color: #007bff;
+    padding: 12px;
+    background-color: #28a745; /* Changed to a green color for better user feedback */
     color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
+    font-size: 1.2em; /* Increased font size */
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+}
+
+button:hover {
+    background-color: #218838; /* Darker green on hover */
 }
 
 button:disabled {

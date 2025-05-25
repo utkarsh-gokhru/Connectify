@@ -1,0 +1,146 @@
+.notification-card.read {
+  background-color: #fff;
+  /* White background for read notifications */
+}
+
+.notification-card.unread {
+  background-color: #d0e7ff;
+  /* Lightish blue background for unread notifications */
+}
+
+/* Other existing styles remain unchanged */
+.notification-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  font-family: 'Arial, sans-serif';
+  background-color: #f4f4f4;
+  min-height: 100vh;
+  margin-left: 30%;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tabs button {
+  color: black;
+  background-color: white;
+}
+
+.tab {
+  padding: 10px 20px;
+  margin: 0 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+  position: relative;
+  transition: all 0.2s;
+}
+
+.tab:hover {
+  cursor: pointer;
+}
+
+.tab sup {
+  font-size: 0.7em;
+  color: red;
+}
+
+.tab.active {
+  border-bottom: 3px solid #0073e6;
+}
+
+.notification-list,
+.request-list {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.notification-card,
+.request-card {
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.notification-card:hover,
+.request-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.notification-card h2,
+.request-card h2 {
+  margin: 0 0 10px;
+  font-size: 1.2em;
+  color: #333;
+}
+
+.notification-card span,
+.request-card span {
+  font-size: 0.9em;
+  color: #555;
+}
+
+.request-actions {
+  display: flex;
+  justify-content: space-between;
+  width: 100px;
+  margin-top: 10px;
+}
+
+.accept-button,
+.reject-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5em;
+}
+
+.accept-button {
+  color: green;
+}
+
+.reject-button {
+  color: red;
+}
+
+@media (max-width: 768px) {
+
+  .notification-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    font-family: 'Arial, sans-serif';
+    background-color: #f4f4f4;
+    min-height: 100vh;
+    margin-top: 20%;
+    width: 60%;
+    margin-left: 15%;
+  }
+
+  .notification-card,
+  .request-card {
+    padding: 10px 15px;
+  }
+
+  .notification-card h2,
+  .request-card h2 {
+    font-size: 1em;
+  }
+
+  .notification-card span,
+  .request-card span {
+    font-size: 0.8em;
+  }
+}

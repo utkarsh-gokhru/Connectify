@@ -24,7 +24,6 @@ body {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -51,6 +50,11 @@ body {
 
 #userName:hover {
     cursor: pointer;
+    text-decoration: underline;
+}
+
+#prImg {
+    margin-right: 10px;
 }
 
 #prImg .icon {
@@ -58,17 +62,15 @@ body {
     height: 40px;
     border-radius: 50%;
     object-fit: cover;
-    margin-right: 20px;
 }
 
-#prImg img:hover {
+#prImg:hover {
     cursor: pointer;
 }
 
 /* Post caption */
 .caption {
     padding: 10px;
-    flex-grow: 1;
 }
 
 /* Truncated text */
@@ -79,21 +81,20 @@ body {
     margin-left: 5px;
 }
 
-/* Post image container */
-.post-image {
+/* Post media container */
+.post-media {
     width: 100%;
     height: auto;
-    /* Let height adjust based on image aspect ratio */
-    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
-.post-image img {
+.post-media img,
+.post-media video {
     width: 100%;
     height: auto;
-    /* Adjust height automatically to maintain aspect ratio */
+    max-height: 300px;
     object-fit: cover;
-    /* Ensure the image covers the container without distortion */
-    cursor: pointer;
 }
 
 /* Post content */
@@ -124,20 +125,10 @@ p {
     cursor: pointer;
     width: 30px;
     height: 30px;
-}
-
-.like-icon {
     transition: transform 0.3s ease, fill 0.3s ease;
 }
 
-.like-icon:hover {
-    transform: scale(1.1);
-}
-
-.comment-icon {
-    transition: transform 0.3s ease, fill 0.3s ease;
-}
-
+.like-icon:hover,
 .comment-icon:hover {
     transform: scale(1.1);
 }
@@ -152,100 +143,44 @@ span p {
 @media (max-width: 600px) {
     .post {
         padding: 5px;
-        width: 100%;
-    }
-
-    .post-card {
-        width: 100%;
-        height: auto;
-        /* Allow height to adjust based on content */
-        margin: 0;
-    }
-
-    .post_user {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .post-icons {
-        flex-direction: row;
-        justify-content: space-between;
-        width: 100%;
-    }
-
-    #userName,
-    #prImg {
-        margin-bottom: 10px;
-    }
-
-    .CScomment {
-        padding: 5px;
-    }
-
-    .addComment input[type="text"] {
-        font-size: 0.8em;
-    }
-
-    .addComment button {
-        font-size: 0.8em;
-        padding: 8px 10px;
-    }
-}
-
-@media (max-width: 480px) {
-    .post-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        padding: 0;
-    }
-
-    .post {
-        width: 100%;
-        padding: 5px;
     }
 
     .post-card {
         width: 100%;
         max-width: 100%;
-        height: auto;
-        /* Allow height to adjust based on content */
-        margin: 0;
     }
 
     .post_user {
         flex-direction: column;
         align-items: flex-start;
-        width: 100%;
-    }
-
-    .post-icons {
-        flex-direction: row;
-        justify-content: space-between;
-        width: 100%;
     }
 
     #userName,
     #prImg {
         margin-bottom: 10px;
+    }
+
+    .caption {
+        padding: 5px;
+    }
+
+    .post-icons {
+        padding: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .post-card {
+        width: 100%;
+    }
+
+    .post_user {
+        width: 100%;
     }
 
     .caption,
     p {
         padding: 10px;
         width: 100%;
-    }
-
-    .post-image {
-        width: 100%;
-        height: auto;
-        overflow: hidden;
-    }
-
-    .post-image img {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
     }
 }

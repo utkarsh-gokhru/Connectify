@@ -20,9 +20,10 @@ const LoginPage = () => {
       axios.post('http://localhost:5000/auth/login', { identifier, password })
         .then(response => {
           console.log(response.data);
-          
+
           // Dispatch the username to the Redux store
           if (response.data.username) {
+            sessionStorage.setItem('username', response.data.username);
             dispatch(setUsername(response.data.username));
           }
 

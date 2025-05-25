@@ -3,8 +3,6 @@ import '../css/AuthPage.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
-import { useDispatch } from 'react-redux';
-import { setUsername } from '../state/actions/action';
 
 const SignupPage = () => {
   const [user, setUser] = useState('');
@@ -18,7 +16,6 @@ const SignupPage = () => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -31,7 +28,7 @@ const SignupPage = () => {
           setLoading(false);
         })
         .catch(error => {
-          console.log(error);
+          //console.log(error);
           setLoading(false);
         })
     } else {
@@ -68,10 +65,10 @@ const SignupPage = () => {
 
     if (user) {
       setCheckingUser(true);
-      console.log(user);
+      //console.log(user);
       axios.post('http://localhost:5000/auth/checkExisting', { user })
         .then(response => {
-          console.log(response);
+          //console.log(response);
           setUserExists(false);
           setCheckingUser(false);
         })
@@ -94,9 +91,9 @@ const SignupPage = () => {
       setLoading(true);
       axios.post('http://localhost:5000/auth/signup', { user, email, password })
         .then(response => {
-          console.log(response.data);
+          //console.log(response.data);
           if (response.data.user) {
-            dispatch(setUsername(response.data.user));
+            sessionStorage.setItem('username',response.data.user);
           }
           setEmail('');
           setPassword('');
@@ -105,7 +102,7 @@ const SignupPage = () => {
           setLoading(false);
         })
         .catch(error => {
-          console.log(error);
+          //console.log(error);
           setLoading(false);
         });
     } else {

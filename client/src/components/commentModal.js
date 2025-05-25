@@ -18,10 +18,30 @@ const CommentModal = ({ media, comments, comment, onCommentChange, onAddComment,
         onCommentChange(comment + emoji.emoji);
     };
 
+    function isVideo(url) {
+        try {
+            const parsedUrl = new URL(url);
+            const fileName = parsedUrl.pathname.split('/').pop();
+            return fileName.toLowerCase().endsWith('.mp4');
+        } catch (e) {
+            console.error('Invalid URL:', url);
+            return false;
+        }
+    }
+
     return (
         <div className='image-comment-overlay' onClick={onClose}>
             <div className='image-section' onClick={handleContentClick}>
-                <img src={'http://localhost:5000/images/' + media} alt='Post' />
+                {media && (
+                    isVideo(media) ? (
+                        <video controls>
+                            <source src={media} type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+                    ) : (
+                        <img src={media} alt='Post' />
+                    )
+                )}
             </div>
             <div className='comment-section' onClick={handleContentClick}>
                 <div className='allComments'>

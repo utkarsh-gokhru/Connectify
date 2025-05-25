@@ -1,22 +1,33 @@
 import { userModel } from '../models/user.js';
 import { postsModel } from '../models/posts.js';
+import { storage } from '../config/firebase.js';
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import {v4} from 'uuid';
+import path from 'path';
 
 export const profile = async (req, res) => {
     try {
         const { existUsername, username, bio, profileType } = req.body;
-        let image;
+        let imageUrl;
 
         if (req.file) {
-            image = req.file.filename;
-        }
-        else {
-            image = 'default_prof.jpg'
+            // Handle file upload
+            const file = req.file.buffer;
+            const fileName = v4() + path.extname(req.file.originalname);
+            const storageRef = ref(storage, `profile_images/${fileName}`);
+            
+            // Upload file to Firebase
+            await uploadBytes(storageRef, file);
+            imageUrl = await getDownloadURL(storageRef);
+        } else {
+            // Default image URL
+            imageUrl = 'https://firebasestorage.googleapis.com/v0/b/connectify-7ec8b.appspot.com/o/profile_images%2Fdefault_prof.jpg?alt=media&token=aeb79218-d65e-4162-bce1-d46700fa4508';
         }
 
         const update = {
             username: username,
             bio: bio,
-            profile_image: image,
+            profile_image: imageUrl, // Update with the new image URL
             profile_type: profileType
         }
 
@@ -40,14 +51,23 @@ export const profile = async (req, res) => {
 export const post = async (req, res) => {
     try {
         const { user, caption } = req.body;
-        let image;
+        console.log(req.body);
+        let mediaUrl;
 
+        // Handle file upload
         if (req.file) {
-            image = req.file.filename;
+            const file = req.file.buffer;
+            console.log(req.file);
+            const fileName = v4() + path.extname(req.file.originalname);
+            const storageRef = ref(storage, `posts/${fileName}`);
+            
+            // Upload file to Firebase
+            await uploadBytes(storageRef, file);
+            mediaUrl = await getDownloadURL(storageRef);
         }
 
         const postId = user + Date.now();
-        const post = new postsModel({ postId, user, content: caption, media: image });
+        const post = new postsModel({ postId, user, content: caption, media: mediaUrl });
         await post.save();
 
         await userModel.findOneAndUpdate(
